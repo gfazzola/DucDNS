@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="1-1-1-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1-1-1-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="abrirCarpetaContenedora" xml:space="preserve">
+    <value>Abrir la carpeta contenedora</value>
+  </data>
+  <data name="acercaDe" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="agregar" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
+  <data name="aplicacion" xml:space="preserve">
+    <value>Aplicacion</value>
+  </data>
+  <data name="archivoConfiguracionNoExiste" xml:space="preserve">
+    <value>El archivo de configuracion {0} no se encontro</value>
+  </data>
+  <data name="bAceptar" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="bCerrar" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="bGuardar" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="bGuardarYNuevo" xml:space="preserve">
+    <value>Guardar y nuevo</value>
+  </data>
+  <data name="bProbarEmail" xml:space="preserve">
+    <value>Enviar correo de prueba</value>
+  </data>
+  <data name="cambioCorrectoDireccionIP" xml:space="preserve">
+    <value>Cambio en la direccion IP correcta</value>
+  </data>
+  <data name="cambioDireccionIP" xml:space="preserve">
+    <value>Cambio en la direccion IP</value>
+  </data>
+  <data name="checkHttps" xml:space="preserve">
+    <value>Https</value>
+  </data>
+  <data name="checkRequierePassword" xml:space="preserve">
+    <value>Requiere clave para acceder a la consola</value>
+  </data>
+  <data name="checkSimple" xml:space="preserve">
+    <value>Simple</value>
+  </data>
+  <data name="checkSSL" xml:space="preserve">
+    <value>SSL</value>
+  </data>
+  <data name="checkVerbose" xml:space="preserve">
+    <value>Actualizar con detalles</value>
+  </data>
+  <data name="conexionInternetReestablecida" xml:space="preserve">
+    <value>Se ha reestablecido la conexion a internet</value>
+  </data>
+  <data name="configGuardadaConErrores" xml:space="preserve">
+    <value>La configuracion no pudo ser guardada!</value>
+  </data>
+  <data name="configGuardadaConExito" xml:space="preserve">
+    <value>La configuracion fue guardada con exito!</value>
+  </data>
+  <data name="configurar" xml:space="preserve">
+    <value>Configurar</value>
+  </data>
+  <data name="confirmeReinicioServicio" xml:space="preserve">
+    <value>Esta seguro que desea reiniciar el servicio '{0}'?</value>
+  </data>
+  <data name="correoDePrueba" xml:space="preserve">
+    <value>Este es un correo de prueba</value>
+  </data>
+  <data name="correoDePruebaEnviado" xml:space="preserve">
+    <value>Se ha intentado enviar un correo de prueba a las direccion(es) especificadas</value>
+  </data>
+  <data name="detener" xml:space="preserve">
+    <value>Detener</value>
+  </data>
+  <data name="Detenido" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Custom-Icon-Design-Flatastic-2-Process-warning.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dominioYaExiste" xml:space="preserve">
+    <value>El dominio {0} ya existe en la lista de dominios!</value>
+  </data>
+  <data name="editar" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="editarDominio" xml:space="preserve">
+    <value>Editar dominio</value>
+  </data>
+  <data name="Ejecutando" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Custom-Icon-Design-Flatastic-2-Process-accept.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ejecutandoComoApp" xml:space="preserve">
+    <value>Ejecutando como app</value>
+  </data>
+  <data name="eliminar" xml:space="preserve">
+    <value>Eiliminar</value>
+  </data>
+  <data name="errorEjecucionProceso" xml:space="preserve">
+    <value>Error en la ejecucion del proceso</value>
+  </data>
+  <data name="errorIntentandoActualizarLosDominios" xml:space="preserve">
+    <value>Error en el intento de actualizar los dominios</value>
+  </data>
+  <data name="errorIntentoActualizarDominio" xml:space="preserve">
+    <value>Error en el intento de actualizacion de la direccion IP</value>
+  </data>
+  <data name="errorIntentoObtencionIpPublica" xml:space="preserve">
+    <value>Error en el intento de obtener la IP publica</value>
+  </data>
+  <data name="grupoNotificaciones" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="grupoSMTP" xml:space="preserve">
+    <value>Servidor de correo</value>
+  </data>
+  <data name="iniciado" xml:space="preserve">
+    <value>iniciado</value>
+  </data>
+  <data name="iniciandoNucleo" xml:space="preserve">
+    <value>Iniciando nucleo '{0}'. Version: {1}. Version host contenedor: {2}.</value>
+  </data>
+  <data name="itemAcercaDe" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="itemAyuda" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="itemGuardar" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="itemGuardarYSalir" xml:space="preserve">
+    <value>Guardar y salir</value>
+  </data>
+  <data name="itemSalir" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="itemSistema" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="K_CONFIRME" xml:space="preserve">
+    <value>Confirme</value>
+  </data>
+  <data name="labelActualizadorDucDNS" xml:space="preserve">
+    <value>Actualizador DucDNS</value>
+  </data>
+  <data name="labelClaveCredenciales" xml:space="preserve">
+    <value>Clave:</value>
+  </data>
+  <data name="labelClaveSMTP" xml:space="preserve">
+    <value>Clave</value>
+  </data>
+  <data name="labelColumnaNombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="labelDesarroladoPor" xml:space="preserve">
+    <value>Desarrollado por MTCSistemas</value>
+  </data>
+  <data name="labelEmail" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="labelEmailsANotificar" xml:space="preserve">
+    <value>Emails a notificar (separados por coma)</value>
+  </data>
+  <data name="labelIntervaloActualizacionMinutos" xml:space="preserve">
+    <value>Intervalo act. (minutos):</value>
+  </data>
+  <data name="labelModoDebug" xml:space="preserve">
+    <value>Modo debug:</value>
+  </data>
+  <data name="labelNombreDominio" xml:space="preserve">
+    <value>Nombre:</value>
+  </data>
+  <data name="labelNotificar" xml:space="preserve">
+    <value>Notificar</value>
+  </data>
+  <data name="labelPuertoSMTP" xml:space="preserve">
+    <value>Puerto:</value>
+  </data>
+  <data name="labelServidorSMTP" xml:space="preserve">
+    <value>Servidor SMTP:</value>
+  </data>
+  <data name="labelToken" xml:space="preserve">
+    <value>Llave</value>
+  </data>
+  <data name="labelUsuarioSMTP" xml:space="preserve">
+    <value>Usuario:</value>
+  </data>
+  <data name="notificaActualizacionCorrectaIP" xml:space="preserve">
+    <value>Actualizacion correcta direccion IP</value>
+  </data>
+  <data name="notificaCambioIp" xml:space="preserve">
+    <value>Cambio de IP</value>
+  </data>
+  <data name="notificaErrorCambioIp" xml:space="preserve">
+    <value>Errores en intento de cambio de IP</value>
+  </data>
+  <data name="notificaOtrosErrores" xml:space="preserve">
+    <value>Otros errores</value>
+  </data>
+  <data name="notificaPerdidaConexionInternet" xml:space="preserve">
+    <value>Perdida de conexion a internet</value>
+  </data>
+  <data name="notificaReestablecimientoConexionInternet" xml:space="preserve">
+    <value>Reestablecimiento de conexion a internet</value>
+  </data>
+  <data name="nucleoDetenido" xml:space="preserve">
+    <value>Nucleo detenido</value>
+  </data>
+  <data name="nucleoIniciado" xml:space="preserve">
+    <value>Nucleo iniciado</value>
+  </data>
+  <data name="nuevoDominio" xml:space="preserve">
+    <value>Nuevo dominio</value>
+  </data>
+  <data name="operacionSobreServicio" xml:space="preserve">
+    <value>Esta seguro que desea {0} el servicio '{1}'?</value>
+  </data>
+  <data name="perdidaConexionInternet" xml:space="preserve">
+    <value>Se ha perdido la conexion a internet</value>
+  </data>
+  <data name="procesoCompletadoConErrores" xml:space="preserve">
+    <value>Proceso completado con errores</value>
+  </data>
+  <data name="procesoCompletadoConExito" xml:space="preserve">
+    <value>Proceso completado con exito</value>
+  </data>
+  <data name="seccionNoEncontrada" xml:space="preserve">
+    <value>La seccion '{0}' no pudo ser encontrada</value>
+  </data>
+  <data name="servicio" xml:space="preserve">
+    <value>Servicio</value>
+  </data>
+  <data name="servicioDesinstalar" xml:space="preserve">
+    <value>Desinstalar</value>
+  </data>
+  <data name="servicioDetenerYSalir" xml:space="preserve">
+    <value>Detener y salir</value>
+  </data>
+  <data name="servicioDetenido" xml:space="preserve">
+    <value>detenido</value>
+  </data>
+  <data name="servicioEnEjecucion" xml:space="preserve">
+    <value>en ejecucion</value>
+  </data>
+  <data name="servicioEstadoDesconocido" xml:space="preserve">
+    <value>estado desconocido</value>
+  </data>
+  <data name="servicioIniciar" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="servicioIniciarYSalir" xml:space="preserve">
+    <value>Iniciar y salir</value>
+  </data>
+  <data name="servicioInstalar" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="servicioNoInstalado" xml:space="preserve">
+    <value>no instalado</value>
+  </data>
+  <data name="servicioReiniciar" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="SinConfigurar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Custom-Icon-Design-Flatastic-2-Process-info.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sinDominiosQueActualizar" xml:space="preserve">
+    <value>No hay dominios que actualizar</value>
+  </data>
+  <data name="tabDominios" xml:space="preserve">
+    <value>Dominios</value>
+  </data>
+  <data name="tabNotificaciones" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="tabPrincipal" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="tabSeguridad" xml:space="preserve">
+    <value>Seguridad</value>
+  </data>
+  <data name="tokenNoDefinido" xml:space="preserve">
+    <value>No se ha definido el token</value>
+  </data>
+  <data name="actualizarAhora" xml:space="preserve">
+    <value>Actualizar ahora</value>
+  </data>
+  <data name="detenerActualizacion" xml:space="preserve">
+    <value>Detener actualizacion</value>
+  </data>
+  <data name="iniciarActualizacion" xml:space="preserve">
+    <value>Iniciar actualizacion</value>
+  </data>
+  <data name="opciones" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="procesoActualizacion" xml:space="preserve">
+    <value>Proceso de actualizacion</value>
+  </data>
+  <data name="actualizar" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="archivoAuditoriaNoExiste" xml:space="preserve">
+    <value>No existe un archivo de auditoria del tipo especificado</value>
+  </data>
+  <data name="depuracion" xml:space="preserve">
+    <value>Depuracion</value>
+  </data>
+  <data name="errores" xml:space="preserve">
+    <value>Errores</value>
+  </data>
+  <data name="erroresEnviandoCorreo" xml:space="preserve">
+    <value>Se produjeron errores al tratar de enviar el correo</value>
+  </data>
+  <data name="errorIntentandoObtenerContenidoArchivo" xml:space="preserve">
+    <value>Error intentando obtener el contenido del archivo: {0}</value>
+  </data>
+  <data name="informacion" xml:space="preserve">
+    <value>Informacion</value>
+  </data>
+  <data name="labelDescripcionEquipo" xml:space="preserve">
+    <value>Descripcion de este equipo</value>
+  </data>
+  <data name="noExisteConexionInternet" xml:space="preserve">
+    <value>No existe conexion a internet</value>
+  </data>
+  <data name="seEnviaronNotificacionesADirecciones" xml:space="preserve">
+    <value>Se enviaron correos de notificacion a las direcciones</value>
+  </data>
+  <data name="tasunto" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+  <data name="tdescripcionEquipo" xml:space="preserve">
+    <value>Descripcion del equipo</value>
+  </data>
+  <data name="tdetalles" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="tfecha" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="ttipoNotificacion" xml:space="preserve">
+    <value>Tipo de notificacion</value>
+  </data>
+</root>

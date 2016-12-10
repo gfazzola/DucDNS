@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4814F778-1C7D-4557-A7DF-31C0DFDF343B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MTC.Nucleo.DucDNS</RootNamespace>
+    <AssemblyName>MTC.Nucleo.DucDNS</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.11\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ColaProcesamiento.cs" />
+    <Compile Include="Comun.cs" />
+    <Compile Include="Configuracion.cs" />
+    <Compile Include="Forms\formAcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formAcercaDe.Designer.cs">
+      <DependentUpon>formAcercaDe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formAdminDominio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formAdminDominio.Designer.cs">
+      <DependentUpon>formAdminDominio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formBase.Designer.cs">
+      <DependentUpon>formBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\formCredenciales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formCredenciales.Designer.cs">
+      <DependentUpon>formCredenciales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\mainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\mainForm.Designer.cs">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mensajes.cs" />
+    <Compile Include="NucleoDucDNS.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PublisherSuscriber.cs" />
+    <Compile Include="Properties\Resources.en-US.Designer.cs">
+      <DependentUpon>Resources.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TaskTrayApplicationContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Plantillas\notificacion.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Resources\Custom-Icon-Design-Flatastic-2-Process-info1.ico" />
+    <None Include="Resources\Custom-Icon-Design-Flatastic-2-Process-accept1.ico" />
+    <None Include="Resources\Custom-Icon-Design-Flatastic-2-Process-warning1.ico" />
+    <None Include="Resources\Custom-Icon-Design-Flatastic-2-Process-info.ico" />
+    <None Include="Resources\Custom-Icon-Design-Flatastic-2-Process-accept.ico" />
+    <None Include="Resources\Custom-Icon-Design-Flatastic-2-Process-warning.ico" />
+    <None Include="Resources\1-1-1-641.png" />
+    <None Include="Resources\1-1-1-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MTC.Host.IComun\MTC.Host.IComun.csproj">
+      <Project>{41dfd444-bbb0-4421-b396-0cf66322e7a0}</Project>
+      <Name>MTC.Host.IComun</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\formAcercaDe.resx">
+      <DependentUpon>formAcercaDe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formAdminDominio.resx">
+      <DependentUpon>formAdminDominio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\formCredenciales.resx">
+      <DependentUpon>formCredenciales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\mainForm.resx">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y $(SolutionDir)MTC.Host\$(OutDir)MTC.Host.exe $(TargetDir)
+xcopy /Y $(SolutionDir)MTC.Host\$(OutDir)MTC.Host.exe.config $(TargetDir)
+xcopy /Y $(SolutionDir)MTC.Host.consola\$(OutDir)MTC.Host.consola.exe $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
