@@ -123,6 +123,9 @@
   <data name="archivoConfiguracionNoExiste" xml:space="preserve">
     <value>El archivo de configuracion {0} no se encontro</value>
   </data>
+  <data name="error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="erroresInicioServicio" xml:space="preserve">
     <value>Se produjeron errores al tratar de iniciar el servicio:</value>
   </data>

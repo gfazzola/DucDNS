@@ -67,7 +67,11 @@ namespace MTC.Host.IComun
                 bool result = false;
                 try
                 {
-                    result = new Ping().Send("www.google.com").Status == IPStatus.Success;
+                    // result = new Ping().Send("www.google.com").Status == IPStatus.Success;
+                    //1.0.0.2 se cambio por el mecanismo anterior de ping
+                    using (var client = new WebClient())
+                    using (var stream = client.OpenRead("http://www.google.com"))
+                        result = true;
                 }
                 catch { }
                 return result;
@@ -189,88 +193,7 @@ namespace MTC.Host.IComun
         }
         #endregion
 
-        #region procesos
-        /* public static void ejecutarProceso(string archivo)
-         {
-             ejecutarProceso(archivo, null, null, false);
-         }
-
-         public static void ejecutarProceso(string archivo, string argumentos, string directorioTrabajo, bool esperarProceso)
-         {
-             try
-             {
-                 System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
-                 psi.FileName = archivo;
-                 if (!File.Exists(psi.FileName))
-                 {
-                     MessageBox.Show("El archivo " + psi.FileName + " no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                     return;
-                 }
-
-                 // string carpeta = Path.GetDirectoryName(archivo);
-                 if (!string.IsNullOrEmpty(argumentos))
-                     psi.Arguments = argumentos;
-                 psi.UseShellExecute = true;
-                 if (string.IsNullOrEmpty(directorioTrabajo))
-                     psi.WorkingDirectory = Application.StartupPath;
-                 else
-                     psi.WorkingDirectory = directorioTrabajo;
-                 System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
-                 if (esperarProceso)
-                     p.WaitForExit();
-             }
-             catch (Exception ex)
-             {
-                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-             }
-         }
-
-         public static void ejecutarProceso(string archivo, bool esperarProceso)
-         {
-             try
-             {
-                 System.Diagnostics.Process p = System.Diagnostics.Process.Start(archivo);
-                 if (esperarProceso)
-                     p.WaitForExit();
-             }
-             catch (Exception ex)
-             {
-                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-             }
-         }
-
-         public static void ejecutarProceso2(string archivo, string argumentos, string directorioTrabajo, bool esperarProceso)
-         {
-             ejecutarProceso2(true, archivo, argumentos, directorioTrabajo, esperarProceso);
-         }
-
-         public static void ejecutarProceso2(bool verificaExistencia, string archivo, string argumentos, string directorioTrabajo, bool esperarProceso)
-         {
-             if (verificaExistencia && !File.Exists(archivo))
-             {
-                 MessageBox.Show("El archivo " + archivo + " no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 return;
-             }
-
-             try
-             {
-                 Process p = new System.Diagnostics.Process();
-                 p.StartInfo.FileName = archivo;
-                 p.StartInfo.Arguments = argumentos;
-                 p.StartInfo.RedirectStandardOutput = true;
-                 p.StartInfo.UseShellExecute = false;
-                 p.StartInfo.CreateNoWindow = true;
-                 p.StartInfo.WorkingDirectory = directorioTrabajo;
-                 p.Start();
-                 if (esperarProceso)
-                     p.WaitForExit();
-             }
-             catch (Exception ex)
-             {
-                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-             }
-         }
-         */
+        #region procesos        
 
         public static bool ejecutarProceso(string archivo, string argumentos, string directorioTrabajo, bool esperarProceso, bool muestraError, out string error)
         {
@@ -287,13 +210,12 @@ namespace MTC.Host.IComun
                 psi.FileName = archivo;
                 if (!File.Exists(psi.FileName))
                 {
-                    error = "El archivo " + psi.FileName + " no existe";
+                    error = string.Format(Properties.Resources.archivoNoExiste, psi.FileName);
                     if (muestraError)
-                        MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(error, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     goto salida;
                 }
-
-                // string carpeta = Path.GetDirectoryName(archivo);
+                
                 if (!string.IsNullOrEmpty(argumentos))
                     psi.Arguments = argumentos;
                 psi.UseShellExecute = true;
@@ -311,7 +233,7 @@ namespace MTC.Host.IComun
             {
                 error = armarMensajeErrorExcepcion(ex);
                 if (muestraError)
-                    MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(error, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         salida:
             return result;
@@ -332,7 +254,7 @@ namespace MTC.Host.IComun
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -349,9 +271,9 @@ namespace MTC.Host.IComun
             error = "";
             if (verificaExistencia && !File.Exists(archivo))
             {
-                error = "El archivo " + archivo + " no existe";
+                error = string.Format(Properties.Resources.archivoNoExiste, archivo);
                 if (muestraMensajeError)
-                    MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(error, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -372,7 +294,7 @@ namespace MTC.Host.IComun
             {
                 error = armarMensajeErrorExcepcion(ex);
                 if (muestraMensajeError)
-                    MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(error, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }

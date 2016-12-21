@@ -143,6 +143,38 @@ namespace MTC.Nucleo.DucDNS.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Signos convencionales:
+        ///  ! Arreglo relacionado a seguridad o a algo critico.
+        ///  + Nueva caracteristica o arreglo importante.
+        ///  - Correccion de errores
+        ///
+        ///  Prefijos de plataforma:
+        ///    MSW: Microsoft Windows
+        ///    *nix: Unix (Ej: BSD) y sistemas basados en Unix (Ej. Linux)
+        ///    OS X: Apple Mac OS X
+        ///
+        ///1.0.0.1 (2016-12-14)
+        ///- MSW: Bug a la hora de guardar el password.
+        ///+ MSW: Agregado del archivo de historial de versiones
+        ///+ MSW: Notificacion al momento de introducir la contraseña que es incorrecta
+        ///+ MSW: Notificacion e [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string archivoHistorialVersiones {
+            get {
+                return ResourceManager.GetString("archivoHistorialVersiones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El archivo &apos;{0}&apos; no existe.
+        /// </summary>
+        internal static string archivoNoExiste {
+            get {
+                return ResourceManager.GetString("archivoNoExiste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Aceptar.
         /// </summary>
         internal static string bAceptar {
@@ -202,6 +234,15 @@ namespace MTC.Nucleo.DucDNS.Properties {
         internal static string cambioDireccionIP {
             get {
                 return ResourceManager.GetString("cambioDireccionIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Novedades de la nueva version.
+        /// </summary>
+        internal static string cambiosNuevaVersion {
+            get {
+                return ResourceManager.GetString("cambiosNuevaVersion", resourceCulture);
             }
         }
         
@@ -351,6 +392,15 @@ namespace MTC.Nucleo.DucDNS.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Direccion ip.
+        /// </summary>
+        internal static string direccionIP {
+            get {
+                return ResourceManager.GetString("direccionIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El dominio {0} ya existe en la lista de dominios!.
         /// </summary>
         internal static string dominioYaExiste {
@@ -402,6 +452,33 @@ namespace MTC.Nucleo.DucDNS.Properties {
         internal static string eliminar {
             get {
                 return ResourceManager.GetString("eliminar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error.
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error intentando obtener la direccion ip publica: {0}.
+        /// </summary>
+        internal static string errorBuscandoIpPublica {
+            get {
+                return ResourceManager.GetString("errorBuscandoIpPublica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña incorrecta.
+        /// </summary>
+        internal static string errorClaveIncorrecta {
+            get {
+                return ResourceManager.GetString("errorClaveIncorrecta", resourceCulture);
             }
         }
         
@@ -483,6 +560,24 @@ namespace MTC.Nucleo.DucDNS.Properties {
         internal static string grupoSMTP {
             get {
                 return ResourceManager.GetString("grupoSMTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Historial de versiones.
+        /// </summary>
+        internal static string historialDeVersiones {
+            get {
+                return ResourceManager.GetString("historialDeVersiones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Haga click con el boton derecho sobre el icono para cambiar la configuracion.
+        /// </summary>
+        internal static string infoAccesoAConfig {
+            get {
+                return ResourceManager.GetString("infoAccesoAConfig", resourceCulture);
             }
         }
         
@@ -811,6 +906,15 @@ namespace MTC.Nucleo.DucDNS.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Esta disponible una nueva version: {0}.
+        /// </summary>
+        internal static string nuevaVersionDisponible {
+            get {
+                return ResourceManager.GetString("nuevaVersionDisponible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nuevo dominio.
         /// </summary>
         internal static string nuevoDominio {
@@ -964,7 +1068,7 @@ namespace MTC.Nucleo.DucDNS.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Install.
+        ///   Busca una cadena traducida similar a Instalar.
         /// </summary>
         internal static string servicioInstalar {
             get {

@@ -31,7 +31,7 @@ namespace MTC.Nucleo.DucDNS
 
         private void formCredenciales_Load(object sender, EventArgs e)
         {
-
+            verSiHabilito(null, null);
         }
 
         private void bAceptar_Click(object sender, EventArgs e)
@@ -50,10 +50,16 @@ namespace MTC.Nucleo.DucDNS
             else
             {
                 cantIntentos++;
-                if (cantIntentos == 3)
+                if (cantIntentos > 3)
                 {
                     DialogResult = DialogResult.Cancel;
                     Close();
+                }
+                else
+                {
+                    //1.0.0.1
+                    MessageBox.Show(Properties.Resources.errorClaveIncorrecta, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    editClave.Text = "";
                 }
             }
         }
@@ -70,6 +76,11 @@ namespace MTC.Nucleo.DucDNS
                 return;
 
             validar();
+        }
+
+        private void verSiHabilito(object sender, EventArgs e)
+        {
+            bAceptar.Enabled = editClave.Text.Length > 0;
         }
     }
 }

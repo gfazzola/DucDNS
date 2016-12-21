@@ -14,12 +14,19 @@ namespace MTC.Nucleo.DucDNS
            itemLogDeEventos, itemConfigurador, itemAbrirCarpetaContenedora,
            exitMenuItem;
 
+        //1.0.0.1
+        private readonly Subscriber<int> suscriberConectadoAInternet;
+        private readonly Subscriber<string> suscriberIpPublica, suscriberNuevaVersion;
+
         MonitorEstadoServicio monitorEstadoServicio = null;
         protected NotifyIcon notifyIcon = new NotifyIcon();
         public delegate_ponerEstadoServicio m_ponerEstadoServicio = null;
         Dictionary<string, object> parametros = null;
         private bool nucleoIniciadoComoApp = false;
 
+        //1.0.0.1
+        private int conexionInternetAnt = -1;
+        private string ipAnt = "";
         #endregion
 
         public TaskTrayApplicationContextBase() { }
@@ -29,11 +36,27 @@ namespace MTC.Nucleo.DucDNS
             try
             {
                 parametros = args[0] as Dictionary<string, object>;
-                Thread.CurrentThread.CurrentUICulture = string.IsNullOrEmpty(nucleo. cultura) ? Thread.CurrentThread.CurrentCulture : new CultureInfo(nucleo.cultura);
+                Thread.CurrentThread.CurrentUICulture = string.IsNullOrEmpty(nucleo.cultura) ? Thread.CurrentThread.CurrentCulture : new CultureInfo(nucleo.cultura);
                 m_ponerEstadoServicio = new delegate_ponerEstadoServicio(ponerEstadoServicio);
                 inicializar();
                 ponerEstadoServicio();
                 iniciarMonitoreoServicio();
+
+                #region 1.0.0.1
+                notifyIcon.BalloonTipTitle = string.Format("{0} V{1}", nucleo.nombre, nucleo.productVersion);
+                notifyIcon.BalloonTipText = Properties.Resources.infoAccesoAConfig;
+                notifyIcon.ShowBalloonTip(15000);
+
+                suscriberConectadoAInternet = new Subscriber<int>(nucleo.publicadorConectadoAInternet);
+                suscriberConectadoAInternet.Publisher.DataPublisher += Publisher_DataPublisher_CambioConectadoAInternet;
+
+                suscriberIpPublica = new Subscriber<string>(nucleo.publicadorIpPublica);
+                suscriberIpPublica.Publisher.DataPublisher += Publisher_DataPublisher_CambioIpPublica;
+
+                suscriberNuevaVersion = new Subscriber<string>(nucleo.publicadorNuevaVersionDisponible);
+                suscriberNuevaVersion.Publisher.DataPublisher += Publisher_DataPublisher_NuevaVersionDisponible;
+
+                #endregion
             }
             catch (Exception ex)
             {
@@ -41,7 +64,10 @@ namespace MTC.Nucleo.DucDNS
             }
         }
 
-        protected INucleo nucleo { get { return parametros["nucleo"] as INucleo; } }
+        //1.0.0.1 se hizo el cambio de la interfaz a la clase directamente para poder suscribirnos a los eventos que nos interesan
+        // protected INucleo nucleo { get { return parametros["nucleo"] as INucleo; } }
+        protected NucleoDucDNS nucleo { get { return parametros["nucleo"] as NucleoDucDNS; } }
+
         protected string nombreServicio { get { return parametros["nombreServicio"] as string; } }
         protected string appHost { get { return parametros["appHost"] as string; } }
 
@@ -135,7 +161,7 @@ namespace MTC.Nucleo.DucDNS
             {
                 if (nucleoIniciadoComoApp)
                 {
-                    iniciarODetenerAplicacion();                    
+                    iniciarODetenerAplicacion();
                 }
 
                 nucleo.Dispose();
@@ -149,7 +175,7 @@ namespace MTC.Nucleo.DucDNS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Utils.armarMensajeErrorExcepcion("Exit: ", ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Utils.armarMensajeErrorExcepcion("Exit: ", ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -163,7 +189,7 @@ namespace MTC.Nucleo.DucDNS
                 monitorEstadoServicio.Dispose();
                 monitorEstadoServicio = null;
             }
-            catch (Exception ex) { MessageBox.Show(Utils.armarMensajeErrorExcepcion("destruirMonitorEstadoServicio: ", ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(Utils.armarMensajeErrorExcepcion("destruirMonitorEstadoServicio: ", ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         protected bool detenerOIniciar(bool detener)
@@ -212,8 +238,8 @@ namespace MTC.Nucleo.DucDNS
                 itemModoAplicacion.MenuItems.Add(itemModoAplicacion_iniciarDetenerYSalir);
                 itemConfigurador = new MenuItem(Properties.Resources.configurar, new EventHandler(itemConfigurador_Click));
                 itemAbrirCarpetaContenedora = new MenuItem(Properties.Resources.abrirCarpetaContenedora, new EventHandler(itemAbrirCarpetaContenedora_Click));
-              
-                exitMenuItem = new MenuItem(Properties.Resources.itemSalir , new EventHandler(Exit));
+
+                exitMenuItem = new MenuItem(Properties.Resources.itemSalir, new EventHandler(Exit));
 
                 notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] {
                     itemModoServicio,
@@ -228,7 +254,7 @@ namespace MTC.Nucleo.DucDNS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Utils.armarMensajeErrorExcepcion("inicializar: ", ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Utils.armarMensajeErrorExcepcion("inicializar: ", ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -262,7 +288,7 @@ namespace MTC.Nucleo.DucDNS
         }
 
         #region eventos del menu
-      
+
         private void iniciarODetenerServicioYSalir(object sender, EventArgs e)
         {
             if (detenerOIniciar(itemModoServicio_iniciarDetenerYSalir.Text == Properties.Resources.servicioDetenerYSalir))
@@ -272,8 +298,8 @@ namespace MTC.Nucleo.DucDNS
         private void itemIniciarDetenerServicio_Click(object sender, EventArgs e)
         {
             System.ServiceProcess.ServiceControllerStatus estado = estadoServicio;
-            if (MessageBox.Show(string.Format(Properties.Resources. operacionSobreServicio,
-                estado == System.ServiceProcess.ServiceControllerStatus.Stopped ? 
+            if (MessageBox.Show(string.Format(Properties.Resources.operacionSobreServicio,
+                estado == System.ServiceProcess.ServiceControllerStatus.Stopped ?
                 Properties.Resources.servicioIniciar.ToLower() : Properties.Resources.detener, nombreServicio), Properties.Resources.K_CONFIRME, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
                 return;
 
@@ -322,7 +348,7 @@ namespace MTC.Nucleo.DucDNS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Utils.armarMensajeErrorExcepcion("iniciarODetenerAplicacion: ", ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Utils.armarMensajeErrorExcepcion("iniciarODetenerAplicacion: ", ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return result;
@@ -366,7 +392,7 @@ namespace MTC.Nucleo.DucDNS
                 else
                 {
                     string parametros = " /i";
-                   
+
                     Utils.ejecutarProceso2(true, appHost, parametros, System.IO.Path.GetDirectoryName(appHost), true, true, out error);
                     if (MTCServiceInstaller.ServiceIsInstalled(nombreServicio))
                     {
@@ -379,9 +405,9 @@ namespace MTC.Nucleo.DucDNS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }        
+        }
 
         private void itemConfigurador_Click(object sender, EventArgs e)
         {
@@ -412,6 +438,61 @@ namespace MTC.Nucleo.DucDNS
             Utils.ejecutarProceso(nucleo.path, false);
         }
 
+        #endregion
+
+        #region 1.0.0.1
+
+        /// <summary>
+        /// 1.0.0.1
+        /// 0 no hay conexion
+        /// 1 hay conexion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Publisher_DataPublisher_CambioConectadoAInternet(object sender, MessageArgument<int> e)
+        {
+            if (conexionInternetAnt != -1)
+            {
+                if (conexionInternetAnt == 0 && e.Message == 1)
+                {
+                    notifyIcon.BalloonTipText = Properties.Resources.conexionInternetReestablecida;
+                    notifyIcon.ShowBalloonTip(10000);
+                }
+                else
+                    if (conexionInternetAnt == 1 && e.Message == 0)
+                {
+                    notifyIcon.BalloonTipText = Properties.Resources.perdidaConexionInternet;
+                    notifyIcon.ShowBalloonTip(10000);
+                }
+            }
+            conexionInternetAnt = e.Message;
+        }
+
+        /// <summary>
+        /// 1.0.0.1
+        /// e= el valor de la ip
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Publisher_DataPublisher_CambioIpPublica(object sender, MessageArgument<string> e)
+        {
+            if (ipAnt != e.Message)
+            {
+                notifyIcon.BalloonTipText = (ipAnt == "" ? Properties.Resources.direccionIP : Properties.Resources.cambioDireccionIP) + " " + e.Message;
+                notifyIcon.ShowBalloonTip(10000);
+               // nucleo.logear2(TipoLog.INFO, " 1 " + notifyIcon.BalloonTipText);
+            }
+
+            ipAnt = e.Message;
+        }
+
+        private void Publisher_DataPublisher_NuevaVersionDisponible(object sender, MessageArgument<string> e)
+        {
+            notifyIcon.BalloonTipText = e.Message;
+            notifyIcon.ShowBalloonTip(10000);
+
+           // nucleo.logear2(TipoLog.INFO, " 2 "+ notifyIcon.BalloonTipText);
+        }
         #endregion
     }
 

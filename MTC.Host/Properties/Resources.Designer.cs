@@ -79,6 +79,15 @@ namespace MTC.Host.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error.
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Se produjeron errores al tratar de iniciar el servicio:.
         /// </summary>
         internal static string erroresInicioServicio {

@@ -39,8 +39,10 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.paginas = new System.Windows.Forms.TabControl();
             this.tabPrincipal = new System.Windows.Forms.TabPage();
+            this.editDescripcionEquipo = new System.Windows.Forms.TextBox();
+            this.labelDescripcionEquipo = new System.Windows.Forms.Label();
             this.comboLogs = new System.Windows.Forms.ComboBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextLogs = new System.Windows.Forms.RichTextBox();
             this.menuLogs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemActualizarLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.bOpciones = new System.Windows.Forms.Button();
@@ -79,6 +81,8 @@
             this.editPuertoSMTP = new System.Windows.Forms.NumericUpDown();
             this.editServidorSMTP = new System.Windows.Forms.TextBox();
             this.labelServidorSMTP = new System.Windows.Forms.Label();
+            this.tabCambiosNuevaVersion = new System.Windows.Forms.TabPage();
+            this.richTextNovedadesNuevaVersion = new System.Windows.Forms.RichTextBox();
             this.barraEstado = new System.Windows.Forms.StatusStrip();
             this.labelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -90,12 +94,12 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.itemSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.itemAyuda = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemHistorialVersiones = new System.Windows.Forms.ToolStripMenuItem();
             this.itemAcercaDe = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemNuevaVersionDisponible = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOpciones = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itemIniciarDetenerActualizacion = new System.Windows.Forms.ToolStripMenuItem();
             this.itemActualizarAhora = new System.Windows.Forms.ToolStripMenuItem();
-            this.editDescripcionEquipo = new System.Windows.Forms.TextBox();
-            this.labelDescripcionEquipo = new System.Windows.Forms.Label();
             this.menuDominios.SuspendLayout();
             this.paginas.SuspendLayout();
             this.tabPrincipal.SuspendLayout();
@@ -107,6 +111,7 @@
             this.grupoNotificaciones.SuspendLayout();
             this.grupoSMTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editPuertoSMTP)).BeginInit();
+            this.tabCambiosNuevaVersion.SuspendLayout();
             this.barraEstado.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.menuOpciones.SuspendLayout();
@@ -121,6 +126,7 @@
             this.itemEliminar});
             this.menuDominios.Name = "contextMenuStrip1";
             this.menuDominios.Size = new System.Drawing.Size(114, 76);
+            this.menuDominios.Opening += new System.ComponentModel.CancelEventHandler(this.menuDominios_Opening);
             // 
             // itemAgregar
             // 
@@ -162,6 +168,7 @@
             this.paginas.Controls.Add(this.tabDominios);
             this.paginas.Controls.Add(this.tabSeguridad);
             this.paginas.Controls.Add(this.tabNotificaciones);
+            this.paginas.Controls.Add(this.tabCambiosNuevaVersion);
             this.paginas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paginas.Location = new System.Drawing.Point(0, 24);
             this.paginas.Name = "paginas";
@@ -174,7 +181,7 @@
             this.tabPrincipal.Controls.Add(this.editDescripcionEquipo);
             this.tabPrincipal.Controls.Add(this.labelDescripcionEquipo);
             this.tabPrincipal.Controls.Add(this.comboLogs);
-            this.tabPrincipal.Controls.Add(this.richTextBox1);
+            this.tabPrincipal.Controls.Add(this.richTextLogs);
             this.tabPrincipal.Controls.Add(this.bOpciones);
             this.tabPrincipal.Controls.Add(this.linkLabel1);
             this.tabPrincipal.Controls.Add(this.editModoDebug);
@@ -194,6 +201,23 @@
             this.tabPrincipal.Text = "Principal";
             this.tabPrincipal.UseVisualStyleBackColor = true;
             // 
+            // editDescripcionEquipo
+            // 
+            this.editDescripcionEquipo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.editDescripcionEquipo.Location = new System.Drawing.Point(9, 21);
+            this.editDescripcionEquipo.Name = "editDescripcionEquipo";
+            this.editDescripcionEquipo.Size = new System.Drawing.Size(202, 20);
+            this.editDescripcionEquipo.TabIndex = 0;
+            // 
+            // labelDescripcionEquipo
+            // 
+            this.labelDescripcionEquipo.AutoSize = true;
+            this.labelDescripcionEquipo.Location = new System.Drawing.Point(8, 5);
+            this.labelDescripcionEquipo.Name = "labelDescripcionEquipo";
+            this.labelDescripcionEquipo.Size = new System.Drawing.Size(136, 13);
+            this.labelDescripcionEquipo.TabIndex = 31;
+            this.labelDescripcionEquipo.Text = "Descripcion de este equipo";
+            // 
             // comboLogs
             // 
             this.comboLogs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -209,16 +233,16 @@
             this.comboLogs.TabIndex = 8;
             this.comboLogs.SelectedIndexChanged += new System.EventHandler(this.comboLogs_SelectedIndexChanged);
             // 
-            // richTextBox1
+            // richTextLogs
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.ContextMenuStrip = this.menuLogs;
-            this.richTextBox1.Location = new System.Drawing.Point(288, 35);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(330, 178);
-            this.richTextBox1.TabIndex = 9;
-            this.richTextBox1.Text = "";
+            this.richTextLogs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextLogs.ContextMenuStrip = this.menuLogs;
+            this.richTextLogs.Location = new System.Drawing.Point(288, 35);
+            this.richTextLogs.Name = "richTextLogs";
+            this.richTextLogs.ReadOnly = true;
+            this.richTextLogs.Size = new System.Drawing.Size(330, 178);
+            this.richTextLogs.TabIndex = 9;
+            this.richTextLogs.Text = "";
             // 
             // menuLogs
             // 
@@ -408,6 +432,7 @@
             this.editClave.PasswordChar = '●';
             this.editClave.Size = new System.Drawing.Size(203, 20);
             this.editClave.TabIndex = 5;
+            this.editClave.TextChanged += new System.EventHandler(this.verSiRequierePassword);
             // 
             // checkRequierePassword
             // 
@@ -631,6 +656,27 @@
             this.labelServidorSMTP.Text = "Servidor SMTP:";
             this.labelServidorSMTP.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // tabCambiosNuevaVersion
+            // 
+            this.tabCambiosNuevaVersion.Controls.Add(this.richTextNovedadesNuevaVersion);
+            this.tabCambiosNuevaVersion.Location = new System.Drawing.Point(4, 25);
+            this.tabCambiosNuevaVersion.Name = "tabCambiosNuevaVersion";
+            this.tabCambiosNuevaVersion.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCambiosNuevaVersion.Size = new System.Drawing.Size(626, 219);
+            this.tabCambiosNuevaVersion.TabIndex = 4;
+            this.tabCambiosNuevaVersion.Text = "Cambios nueva version";
+            this.tabCambiosNuevaVersion.UseVisualStyleBackColor = true;
+            // 
+            // richTextNovedadesNuevaVersion
+            // 
+            this.richTextNovedadesNuevaVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextNovedadesNuevaVersion.Location = new System.Drawing.Point(3, 3);
+            this.richTextNovedadesNuevaVersion.Name = "richTextNovedadesNuevaVersion";
+            this.richTextNovedadesNuevaVersion.ReadOnly = true;
+            this.richTextNovedadesNuevaVersion.Size = new System.Drawing.Size(620, 213);
+            this.richTextNovedadesNuevaVersion.TabIndex = 1;
+            this.richTextNovedadesNuevaVersion.Text = "";
+            // 
             // barraEstado
             // 
             this.barraEstado.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -666,7 +712,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemSistema,
-            this.itemAyuda});
+            this.itemAyuda,
+            this.itemNuevaVersionDisponible});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(634, 24);
@@ -714,17 +761,35 @@
             // 
             this.itemAyuda.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.itemAyuda.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemHistorialVersiones,
             this.itemAcercaDe});
             this.itemAyuda.Name = "itemAyuda";
             this.itemAyuda.Size = new System.Drawing.Size(50, 20);
             this.itemAyuda.Text = "Ayuda";
             // 
+            // itemHistorialVersiones
+            // 
+            this.itemHistorialVersiones.Name = "itemHistorialVersiones";
+            this.itemHistorialVersiones.Size = new System.Drawing.Size(176, 22);
+            this.itemHistorialVersiones.Text = "Historial de versiones";
+            this.itemHistorialVersiones.Click += new System.EventHandler(this.itemHistorialVersiones_Click);
+            // 
             // itemAcercaDe
             // 
             this.itemAcercaDe.Name = "itemAcercaDe";
-            this.itemAcercaDe.Size = new System.Drawing.Size(122, 22);
+            this.itemAcercaDe.Size = new System.Drawing.Size(176, 22);
             this.itemAcercaDe.Text = "Acerca de";
             this.itemAcercaDe.Click += new System.EventHandler(this.itemAcercaDe_Click);
+            // 
+            // itemNuevaVersionDisponible
+            // 
+            this.itemNuevaVersionDisponible.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.itemNuevaVersionDisponible.BackColor = System.Drawing.Color.Black;
+            this.itemNuevaVersionDisponible.ForeColor = System.Drawing.Color.White;
+            this.itemNuevaVersionDisponible.Name = "itemNuevaVersionDisponible";
+            this.itemNuevaVersionDisponible.Size = new System.Drawing.Size(138, 20);
+            this.itemNuevaVersionDisponible.Text = "Nueva version disponible";
+            this.itemNuevaVersionDisponible.Click += new System.EventHandler(this.itemNuevaVersionDisponible_Click);
             // 
             // menuOpciones
             // 
@@ -747,23 +812,6 @@
             this.itemActualizarAhora.Size = new System.Drawing.Size(177, 22);
             this.itemActualizarAhora.Text = "Actualizar ahora";
             this.itemActualizarAhora.Click += new System.EventHandler(this.itemActualizarAhora_Click);
-            // 
-            // editDescripcionEquipo
-            // 
-            this.editDescripcionEquipo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.editDescripcionEquipo.Location = new System.Drawing.Point(9, 21);
-            this.editDescripcionEquipo.Name = "editDescripcionEquipo";
-            this.editDescripcionEquipo.Size = new System.Drawing.Size(202, 20);
-            this.editDescripcionEquipo.TabIndex = 0;
-            // 
-            // labelDescripcionEquipo
-            // 
-            this.labelDescripcionEquipo.AutoSize = true;
-            this.labelDescripcionEquipo.Location = new System.Drawing.Point(8, 5);
-            this.labelDescripcionEquipo.Name = "labelDescripcionEquipo";
-            this.labelDescripcionEquipo.Size = new System.Drawing.Size(136, 13);
-            this.labelDescripcionEquipo.TabIndex = 31;
-            this.labelDescripcionEquipo.Text = "Descripcion de este equipo";
             // 
             // mainForm
             // 
@@ -797,6 +845,7 @@
             this.grupoSMTP.ResumeLayout(false);
             this.grupoSMTP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editPuertoSMTP)).EndInit();
+            this.tabCambiosNuevaVersion.ResumeLayout(false);
             this.barraEstado.ResumeLayout(false);
             this.barraEstado.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -869,11 +918,15 @@
         private System.Windows.Forms.ContextMenuStrip menuOpciones;
         private System.Windows.Forms.ToolStripMenuItem itemIniciarDetenerActualizacion;
         private System.Windows.Forms.ToolStripMenuItem itemActualizarAhora;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextLogs;
         private System.Windows.Forms.ComboBox comboLogs;
         private System.Windows.Forms.ContextMenuStrip menuLogs;
         private System.Windows.Forms.ToolStripMenuItem itemActualizarLogs;
         private System.Windows.Forms.TextBox editDescripcionEquipo;
         private System.Windows.Forms.Label labelDescripcionEquipo;
+        private System.Windows.Forms.ToolStripMenuItem itemHistorialVersiones;
+        private System.Windows.Forms.ToolStripMenuItem itemNuevaVersionDisponible;
+        private System.Windows.Forms.TabPage tabCambiosNuevaVersion;
+        private System.Windows.Forms.RichTextBox richTextNovedadesNuevaVersion;
     }
 }

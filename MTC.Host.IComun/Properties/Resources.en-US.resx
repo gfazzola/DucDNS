@@ -120,6 +120,12 @@
   <data name="archivoConfiguracionNoExiste" xml:space="preserve">
     <value>El archivo de configuracion {0} no se encontro</value>
   </data>
+  <data name="archivoNoExiste" xml:space="preserve">
+    <value>File '{0}' does not exist</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="errorInterrogandoEstadoServicio" xml:space="preserve">
     <value>An error occurred while attempting to interrogate the service status.</value>
   </data>

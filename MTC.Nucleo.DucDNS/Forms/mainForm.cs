@@ -13,17 +13,21 @@ namespace MTC.Nucleo.DucDNS
     {
         private readonly Subscriber<int> suscriberConectadoAInternet;
         private readonly Subscriber<string> suscriberIpPublica, suscriberTickMinuto;
+        //1.0.0.1
+        private string claveOriginal = "";
+        private bool cargando = true;
 
         Dictionary<string, bool> dominios = new Dictionary<string, bool>();
-        NucleoDucDNS nucleo;
+
         public mainForm()
         {
             InitializeComponent();
         }
 
-        public mainForm(NucleoDucDNS nucleo)
+        public mainForm(NucleoDucDNS nucleo) : base(nucleo)
         {
             InitializeComponent();
+
             #region internacionalizacion
             labelToken.Text = Properties.Resources.labelToken;
             labelIntervaloActualizacionMinutos.Text = Properties.Resources.labelIntervaloActualizacionMinutos;
@@ -82,6 +86,25 @@ namespace MTC.Nucleo.DucDNS
 
             labelDescripcionEquipo.Text = Properties.Resources.labelDescripcionEquipo;
 
+            //1.0.0.2 si se esta ejecutando como servicio y abro esto como app no veo si hay cambio de version con lo cual por ahora lo invocamos
+            nucleo.verificarDisponibilidadNuevaVersion();
+
+            #region 1.0.0.1
+            itemHistorialVersiones.Text = Properties.Resources.historialDeVersiones;
+
+            itemNuevaVersionDisponible.Visible = nucleo.nuevaVersionDisponible;
+            itemNuevaVersionDisponible.Text = string.Format(Properties.Resources.nuevaVersionDisponible, nucleo.nuevaVersion);
+
+            if (!nucleo.nuevaVersionDisponible)
+                paginas.TabPages.Remove(tabCambiosNuevaVersion);
+            else
+            {
+                tabCambiosNuevaVersion.Text = Properties.Resources.cambiosNuevaVersion;
+                richTextNovedadesNuevaVersion.Text = nucleo.fechaNuevaVersion.ToShortDateString() + Environment.NewLine + Environment.NewLine;
+                foreach (var linea in nucleo.cambiosNuevaVersion.Split('|'))
+                    richTextNovedadesNuevaVersion.Text += linea + Environment.NewLine;
+            }
+            #endregion
             #endregion
 
             labelEstadoConexion.Image = imageList1.Images[nucleo.conectadoAInternet];
@@ -89,7 +112,7 @@ namespace MTC.Nucleo.DucDNS
             labelStatus.Text = string.Format("{0} {1}. {2}", Properties.Resources.procesoActualizacion, nucleo.iniciado ? Properties.Resources.iniciado :
                 Properties.Resources.servicioDetenido, DateTime.Now.ToString());
 
-            this.nucleo = nucleo;
+            //this.nucleo = nucleo;
             suscriberConectadoAInternet = new Subscriber<int>(nucleo.publicadorConectadoAInternet);
             suscriberConectadoAInternet.Publisher.DataPublisher += Publisher_DataPublisher_CambioConectadoAInternet;
             suscriberIpPublica = new Subscriber<string>(nucleo.publicadorIpPublica);
@@ -97,7 +120,7 @@ namespace MTC.Nucleo.DucDNS
 
             suscriberTickMinuto = new Subscriber<string>(nucleo.publicadorTickMinuto);
             suscriberTickMinuto.Publisher.DataPublisher += Publisher_DataPublisher;
-            
+
             comboLogs.SelectedIndex = 1;
         }
 
@@ -153,7 +176,9 @@ namespace MTC.Nucleo.DucDNS
                     editModoDebug.Value = 0;
 
                 checkRequierePassword.Checked = nucleo.configuracionServidorDucDNS.adminRequierePassword;
-                editClave.Text = nucleo.configuracionServidorDucDNS.passwordAdmin;
+
+                //1.0.0.1
+                claveOriginal = editClave.Text = nucleo.configuracionServidorDucDNS.passwordAdmin;
 
                 editModoDebug.Value = (decimal)nucleo.configuracionServidorDucDNS.modoDebug;
 
@@ -192,8 +217,11 @@ namespace MTC.Nucleo.DucDNS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            //1.0.0.1
+            cargando = false;
+            checkRequierePassword_CheckedChanged(null, null);
         }
 
         private void itemSalir_Click(object sender, EventArgs e)
@@ -218,7 +246,7 @@ namespace MTC.Nucleo.DucDNS
             var dominio = sender as string;
             if (dominios.ContainsKey(dominio))
             {
-                MessageBox.Show(string.Format(Properties.Resources.dominioYaExiste, dominio), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Properties.Resources.dominioYaExiste, dominio), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -251,11 +279,15 @@ namespace MTC.Nucleo.DucDNS
         {
             if (lDominios.SelectedItems.Count == 0)
                 return;
-            var dominio = lDominios.SelectedItems[0].Text;
 
-            dominios.Remove(dominio);
-            lDominios.Items.Remove(lDominios.SelectedItems[0]);
+            //1.0.0.1 remuevo todos los seleccionados
+            while (lDominios.SelectedItems.Count > 0)
+            {
+                var dominio = lDominios.SelectedItems[0].Text;
 
+                dominios.Remove(dominio);
+                lDominios.Items.Remove(lDominios.SelectedItems[0]);
+            }
         }
 
         private void itemGuardar_Click(object sender, EventArgs e)
@@ -301,8 +333,18 @@ namespace MTC.Nucleo.DucDNS
                 nucleo.configuracionServidorDucDNS.simple = checkSimple.Checked;
                 nucleo.configuracionServidorDucDNS.minutosActualizacion = Int32.Parse(comboMinutosActualizacion.Text);
                 nucleo.configuracionServidorDucDNS.modoDebug = (int)editModoDebug.Value;
-                nucleo.configuracionServidorDucDNS.passwordAdmin = editClave.Text.Length > 0 ? Encriptacion.getMd5Hash(editClave.Text) : "";
-                nucleo.configuracionServidorDucDNS.adminRequierePassword = checkRequierePassword.Checked;
+
+                #region 1.0.0.1
+                nucleo.configuracionServidorDucDNS.adminRequierePassword = editClave.Text.Length > 0;
+                if (nucleo.configuracionServidorDucDNS.adminRequierePassword)
+                {
+                    if (claveOriginal != editClave.Text)
+                        nucleo.configuracionServidorDucDNS.passwordAdmin = Encriptacion.getMd5Hash(editClave.Text);
+                }
+                else
+                    nucleo.configuracionServidorDucDNS.passwordAdmin = "";
+                //nucleo.configuracionServidorDucDNS.adminRequierePassword = checkRequierePassword.Checked;
+                #endregion
 
                 nucleo.configuracionServidorDucDNS.puertoSMTP = (int)editPuertoSMTP.Value;
                 nucleo.configuracionServidorDucDNS.servidorSMTP = encriptar(editServidorSMTP.Text.Trim());
@@ -321,7 +363,7 @@ namespace MTC.Nucleo.DucDNS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return result;
@@ -329,7 +371,17 @@ namespace MTC.Nucleo.DucDNS
 
         private void checkRequierePassword_CheckedChanged(object sender, EventArgs e)
         {
+            if (cargando)
+                return;
+
             editClave.Enabled = checkRequierePassword.Checked;
+
+            //1.0.0.1
+            if (!editClave.Enabled && editClave.Text.Trim().Length > 0)
+                editClave.Text = "";
+            else
+                if (editClave.Enabled)
+                ActiveControl = editClave;
         }
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -424,19 +476,19 @@ namespace MTC.Nucleo.DucDNS
             string error = "";
             string nArchivo = Utils.getLogFileName(target, out error);
             if (!string.IsNullOrEmpty(error))
-                richTextBox1.Text = error;
+                richTextLogs.Text = error;
             else
                 if (File.Exists(nArchivo))
                 try
                 {
-                    richTextBox1.LoadFile(nArchivo, RichTextBoxStreamType.PlainText);
+                    richTextLogs.LoadFile(nArchivo, RichTextBoxStreamType.PlainText);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             else
-                richTextBox1.Text = Properties.Resources.archivoAuditoriaNoExiste;
+                richTextLogs.Text = Properties.Resources.archivoAuditoriaNoExiste;
         }
 
         private void itemActualizarLogs_Click(object sender, EventArgs e)
@@ -444,10 +496,39 @@ namespace MTC.Nucleo.DucDNS
             actualizarLogs();
         }
 
+        private void verSiRequierePassword(object sender, EventArgs e)
+        {
+            if (cargando)
+                return;
+
+            //1.0.0.1
+            if (editClave.Text.Length == 0 && checkRequierePassword.Checked)
+                checkRequierePassword.Checked = false;
+        }
+
+        private void itemHistorialVersiones_Click(object sender, EventArgs e)
+        {
+            //1.0.0.1           
+            new formHistorialVersiones().ShowDialog();
+        }
+
+        private void itemNuevaVersionDisponible_Click(object sender, EventArgs e)
+        {
+            //1.0.0.1
+            if (!string.IsNullOrEmpty(nucleo.urlNuevaVersion))
+                System.Diagnostics.Process.Start(nucleo.urlNuevaVersion);
+        }
+
+        //1.0.0.1
+        private void menuDominios_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            itemEditar.Enabled = lDominios.SelectedItems.Count == 1;
+            itemEliminar.Enabled = lDominios.SelectedItems.Count > 0;
+        }
+
         private void Publisher_DataPublisher_CambioConectadoAInternet(object sender, MessageArgument<int> e)
         {
             labelEstadoConexion.Image = imageList1.Images[e.Message];
         }
-
     }
 }

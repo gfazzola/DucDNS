@@ -5,6 +5,7 @@ using System.IO;
 using NLog;
 using System.Threading;
 using System.Globalization;
+using System.Drawing;
 namespace MTC.Host.IComun
 {
     public class NucleoBase
@@ -15,7 +16,7 @@ namespace MTC.Host.IComun
         protected static string _path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         protected static string _nombre;
         protected static Dictionary<string, object> _parametros;
-
+        
         public NucleoBase(Dictionary<string, object> parametros)
         {
             _parametros = parametros;
@@ -25,6 +26,10 @@ namespace MTC.Host.IComun
             log = LogManager.GetLogger(GetType().FullName);
 
             _cultura = (string)parametros["cultura"];
+
+            if (parametros.ContainsKey("icono"))
+                icono = parametros["icono"] as Icon;
+
             Thread.CurrentThread.CurrentUICulture = string.IsNullOrEmpty(cultura) ? Thread.CurrentThread.CurrentCulture : new CultureInfo(cultura);
         }
 
@@ -77,6 +82,7 @@ namespace MTC.Host.IComun
 
         public bool iniciado { get { return _iniciado; } }
 
+        public Icon icono { get; set; }
         #endregion
 
         public void buscarInfoEnsamblado(System.Reflection.Assembly ensamblado)

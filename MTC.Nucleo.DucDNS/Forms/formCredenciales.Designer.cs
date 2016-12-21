@@ -51,6 +51,7 @@
             this.editClave.PasswordChar = '●';
             this.editClave.Size = new System.Drawing.Size(203, 20);
             this.editClave.TabIndex = 0;
+            this.editClave.TextChanged += new System.EventHandler(this.verSiHabilito);
             this.editClave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editClave_KeyDown);
             this.editClave.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.suprimirBeep);
             // 

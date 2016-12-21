@@ -1,0 +1,16 @@
+﻿;MTCSistemas archivo de informacion de version de MTC.Nucleo.DucDNS
+
+[Sistema]
+
+;la fecha de liberacion de la version
+fecha=20161221
+
+;la version actual del sistema
+version=1.0.0.2
+
+;la direccion web donde se encuentra la ultima version
+url=http://www.mtcsistemas.com
+
+;la lista de nuevas funcionalidades o correcciones que tiene la nueva version
+cambios=Cambio en el mecanismo de verificación de conexión a internet
+cambios-en-US=Change in internet connection verification mechanism

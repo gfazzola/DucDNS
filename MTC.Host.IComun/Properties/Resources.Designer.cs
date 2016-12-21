@@ -70,6 +70,24 @@ namespace MTC.Host.IComun.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El archivo &apos;{0}&apos; no existe.
+        /// </summary>
+        internal static string archivoNoExiste {
+            get {
+                return ResourceManager.GetString("archivoNoExiste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error.
+        /// </summary>
+        internal static string error {
+            get {
+                return ResourceManager.GetString("error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Se produjo un error al intentar interrogar por el estado del servicio..
         /// </summary>
         internal static string errorInterrogandoEstadoServicio {

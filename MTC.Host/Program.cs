@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Configuration.Install;
 using System.Diagnostics;
+using System.Drawing;
 namespace MTC.Host
 { 
     public class MTCHost : System.ServiceProcess.ServiceBase
@@ -34,7 +35,7 @@ namespace MTC.Host
         static string path = System.IO.Path.GetDirectoryName(appHost);
         static FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(appHost);
         INucleo _nucleo = null;
-
+       static Icon icono = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
         public MTCHost(bool notificaCambioDeSesion)
         {
             InitializeComponent();
@@ -115,7 +116,7 @@ namespace MTC.Host
             {
                 string msgError = Utils.armarMensajeErrorExcepcion(ex);
                 if (queHace == QueHaceConLosArgumentos.EjecutaComoVentana)
-                    MessageBox.Show(msgError, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(msgError, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
                 {
                     string sSource;
@@ -152,7 +153,7 @@ namespace MTC.Host
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     break;
 
@@ -198,7 +199,7 @@ namespace MTC.Host
             string nombreApp = configServicio.nombre + "-App";
             if (SingleInstanceClass.CheckForOtherApp(nombreApp))
             {
-                MessageBox.Show(Properties.Resources.aplicacionEnEjecucion + nombreApp, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Properties.Resources.aplicacionEnEjecucion + nombreApp, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -210,6 +211,7 @@ namespace MTC.Host
             Dictionary<string, object> parametros = new Dictionary<string, object>(){
             {"nucleo", _instance},
             {"nombreApp", nombreApp},
+                //{"icono", icono},
                 {"nombreServicio", configServicio.nombre},
                 {"appHost", appHost}};
 
@@ -318,14 +320,11 @@ namespace MTC.Host
             { "haceUsoDeLog", haceUsoDeLog },
             { "versionHostContenedor", fvi.ProductVersion },
             {"configServicioHost", configServicio},
-                {"cultura", cultura } };
+                {"cultura", cultura },
+                { "icono", icono } };
             return (INucleo)Activator.CreateInstance(Type.GetType(configuracionNucleo.tipoProveedor), new object[1] { parametrosNucleo });
         }
-
         
-
-       
-
         public static bool AttachToConsole()
         {
             const uint ParentProcess = 0xFFFFFFFF;

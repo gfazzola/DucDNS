@@ -91,7 +91,7 @@ namespace MTC.Host
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
         }
 

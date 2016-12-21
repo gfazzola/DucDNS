@@ -7,32 +7,42 @@ using System.Net;
 using System.Configuration;
 using MTC.Host.IComun;
 using System.Linq;
+using MadMilkman.Ini;
+using System.Globalization;
+using System.Threading;
 namespace MTC.Nucleo.DucDNS
 {
     public partial class NucleoDucDNS : NucleoBase, INucleo
     {
         ColaProcesamiento<Notificacion> colaNotificaciones = null;
-        bool _disposed = false, _actualizacionDetenida=false;
+        bool _disposed = false, _actualizacionDetenida = false;
         object lockEntidad = new object();
         public ConfiguracionServidorDucDNS configuracionServidorDucDNS;
         public string seccionConfiguracionServicio = "ConfiguracionServidorDucDNS";
         protected static TaskTrayApplicationContext _contextoAplicacion = null;
         private System.Timers.Timer timerMinuto = null;
 
-        public string ipPublica = "", ipPublicaAnt = "";
+        public string ipPublica = "?", ipPublicaAnt = "";
 
         public int conectadoAInternet = 0;
-        int cantMinutos = 0,  conectadoAInternetAnt = -1;
+        int cantMinutos = 0, conectadoAInternetAnt = -1;
         public readonly IPublisher<int> publicadorConectadoAInternet;
-        public readonly IPublisher<string> publicadorIpPublica, publicadorTickMinuto;
+        public readonly IPublisher<string> publicadorIpPublica, publicadorTickMinuto,
+            //1.0.0.1
+            publicadorNuevaVersionDisponible;
         private readonly string __passPhrase = "MTCSistemas.com";
 
-        public NucleoDucDNS(Dictionary<string, object> parametros): base(parametros)
+        //1.0.0.1
+        public string nuevaVersion = "", urlNuevaVersion = "", cambiosNuevaVersion = "";
+        public bool nuevaVersionDisponible = false;
+        public DateTime fechaNuevaVersion = DateTime.MinValue;
+
+        public NucleoDucDNS(Dictionary<string, object> parametros) : base(parametros)
         {
             buscarInfoEnsamblado(System.Reflection.Assembly.GetExecutingAssembly());
             _nombre = this.GetType().Name;
 
-            var archivoConfig = Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location)+".config";
+            var archivoConfig = Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location) + ".config";
             inicializar(archivoConfig);
             configuracionServidorDucDNS = (ConfiguracionServidorDucDNS)config.GetSection(seccionConfiguracionServicio);
             if (configuracionServidorDucDNS == null)
@@ -41,6 +51,8 @@ namespace MTC.Nucleo.DucDNS
             publicadorConectadoAInternet = new Publisher<int>();
             publicadorIpPublica = new Publisher<string>();
             publicadorTickMinuto = new Publisher<string>();
+            //1.0.0.1
+            publicadorNuevaVersionDisponible = new Publisher<string>();
 
             colaNotificaciones = new ColaProcesamiento<Notificacion>();
             colaNotificaciones.nuevaTarea += Cola_nuevaTarea;
@@ -51,7 +63,7 @@ namespace MTC.Nucleo.DucDNS
 
         public bool actualizacionDetenida { get { return _actualizacionDetenida; } set { _actualizacionDetenida = value; } }
 
-#endregion
+        #endregion
 
         public bool iniciar(out string error)
         {
@@ -139,7 +151,7 @@ namespace MTC.Nucleo.DucDNS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Utils.armarMensajeErrorExcepcion(ex), Properties.Resources.error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -156,6 +168,12 @@ namespace MTC.Nucleo.DucDNS
                 {
                     conectadoAInternet = Utils.conexionAInternet ? 1 : 0;
                     ipPublica = Utils.ipPublica(out error);
+                    //1.0.0.1
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        log.Error(string.Format(Properties.Resources.errorBuscandoIpPublica, error));
+                        ipPublica = "?";
+                    }
                 }
                 else
                 {
@@ -165,6 +183,12 @@ namespace MTC.Nucleo.DucDNS
 
                     ipPublicaAnt = ipPublica;
                     ipPublica = Utils.ipPublica(out error);
+                    //1.0.0.1
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        log.Error(string.Format(Properties.Resources.errorBuscandoIpPublica, error));
+                        ipPublica = "?";
+                    }
 
                     huboCambioIP = huboCambios = !string.IsNullOrEmpty(ipPublicaAnt) && !string.IsNullOrEmpty(ipPublica) && ipPublicaAnt != ipPublica;
 
@@ -218,8 +242,6 @@ namespace MTC.Nucleo.DucDNS
                 if (!_actualizacionDetenida && ((cantMinutos % configuracionServidorDucDNS.minutosActualizacion) == 0 || huboCambios))
                     actualizarDominios();
 
-                cantMinutos++;
-
                 publicadorConectadoAInternet.PublishData(conectadoAInternet);
                 publicadorIpPublica.PublishData(ipPublica);
 
@@ -237,10 +259,20 @@ namespace MTC.Nucleo.DucDNS
                         log.Debug("Se encolo la notific. de error en el intento de obtener la IP publica");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(Utils.armarMensajeErrorExcepcion("procesar: ", ex));
             }
+
+            //1.0.0.1 al minuto verificamos
+            if (cantMinutos == 1)
+                verificarDisponibilidadNuevaVersion();
+
+            cantMinutos++;
+
+            //1.0.0.1
+            if (cantMinutos > 60)
+                cantMinutos = 0;
         }
 
         public void actualizarDominios() { _actualizarDominios(); }
@@ -447,8 +479,8 @@ namespace MTC.Nucleo.DucDNS
             catch (Exception ex) { log.Error(Utils.armarMensajeErrorExcepcion("Cola_nuevaTarea: ", ex)); }
         }
 
-        public void enviarEmailNotificacion(Notificacion notificacion, string servidorSMTP , int puertoSMTP, bool ssl, string emailEnvio , string usuarioSMTP,
-            string claveUsuarioSMTP , string emailsNotificaciones, out bool tareaProcesada)
+        public void enviarEmailNotificacion(Notificacion notificacion, string servidorSMTP, int puertoSMTP, bool ssl, string emailEnvio, string usuarioSMTP,
+            string claveUsuarioSMTP, string emailsNotificaciones, out bool tareaProcesada)
         {
             tareaProcesada = false;
             string archivo = Path.Combine(path, @"Plantillas\notificacion.htm");
@@ -468,7 +500,9 @@ namespace MTC.Nucleo.DucDNS
             template_archivo = template_archivo.Replace("<#tasunto#>", Properties.Resources.tasunto);
             template_archivo = template_archivo.Replace("<#tdetalles#>", Properties.Resources.tdetalles);
 
-            template_archivo = template_archivo.Replace("<#descripcionEquipo#>", configuracionServidorDucDNS.descripcionEquipo);
+            //1.0.0.2
+            template_archivo = template_archivo.Replace("<#descripcionEquipo#>", string.Format("{0}-V{1}",
+                configuracionServidorDucDNS.descripcionEquipo, productVersion));
             template_archivo = template_archivo.Replace("<#tipoNotificacion#>", notificacion.tipoNotificacion.ToString());
             template_archivo = template_archivo.Replace("<#fecha#>", notificacion.fecha.ToString());
             template_archivo = template_archivo.Replace("<#asunto#>", notificacion.asunto);
@@ -507,7 +541,7 @@ namespace MTC.Nucleo.DucDNS
                     if (configuracionServidorDucDNS.modoDebug == 2)
                         log.Debug(Properties.Resources.seEnviaronNotificacionesADirecciones + " " + String.Join(",", destinatarios.ToArray()));
                 }
-            }       
+            }
         }
 
         #region destruccion
@@ -548,5 +582,55 @@ namespace MTC.Nucleo.DucDNS
         }
 
         #endregion
+
+        //1.0.0.1
+        //1.0.0.2 se cambio a publico para q pueda ser invocado desde el formulario de configuracion
+        public void verificarDisponibilidadNuevaVersion()
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create("http://mtcsistemas.com/DucDNSVersion.txt");
+                request.AutomaticDecompression = DecompressionMethods.GZip;
+
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    IniFile archivoConfig = new IniFile();
+                    archivoConfig.Load(reader);
+
+                    IniSection section = archivoConfig.Sections["Sistema"];
+
+                    nuevaVersion = section.Keys["version"].Value.Trim();
+                    urlNuevaVersion = section.Keys["url"].Value.Trim();
+                    
+                    var sfecha = section.Keys["fecha"].Value.Trim();
+                    
+                    string claveCambios = string.Format("cambios-{0}", Thread.CurrentThread.CurrentCulture.Name);
+                    if (section.Keys[claveCambios] != null)
+                        cambiosNuevaVersion = section.Keys[claveCambios].Value.Trim();
+                    else
+                        cambiosNuevaVersion = section.Keys["cambios"].Value.Trim();
+
+                    try
+                    {
+                        fechaNuevaVersion = DateTime.ParseExact(sfecha, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(Utils.armarMensajeErrorExcepcion("verificarDisponibilidadNuevaVersion 1: ", ex));
+                    }
+
+                    nuevaVersionDisponible = nuevaVersion != productVersion;
+                    if (nuevaVersionDisponible)
+                        publicadorNuevaVersionDisponible.PublishData(string.Format(Properties.Resources.nuevaVersionDisponible, nuevaVersion));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(Utils.armarMensajeErrorExcepcion("verificarDisponibilidadNuevaVersion: ", ex));
+            }
+
+        }
     }
 }

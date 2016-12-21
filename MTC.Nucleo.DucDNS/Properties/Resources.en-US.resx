@@ -121,7 +121,7 @@
     <value>Open container folder</value>
   </data>
   <data name="acercaDe" xml:space="preserve">
-    <value>Acerca de</value>
+    <value>About</value>
   </data>
   <data name="agregar" xml:space="preserve">
     <value>Add</value>
@@ -462,5 +462,35 @@
   </data>
   <data name="ttipoNotificacion" xml:space="preserve">
     <value>Notification type</value>
+  </data>
+  <data name="archivoNoExiste" xml:space="preserve">
+    <value>File '{0}' does not exist</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="errorClaveIncorrecta" xml:space="preserve">
+    <value>Contraseña incorrecta</value>
+  </data>
+  <data name="archivoHistorialVersiones" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Doc\HistorialVersiones.en-US.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="historialDeVersiones" xml:space="preserve">
+    <value>Version history</value>
+  </data>
+  <data name="infoAccesoAConfig" xml:space="preserve">
+    <value>Right click on the icon to change the configuration</value>
+  </data>
+  <data name="direccionIP" xml:space="preserve">
+    <value>Direccion ip</value>
+  </data>
+  <data name="cambiosNuevaVersion" xml:space="preserve">
+    <value>What's new in the new version</value>
+  </data>
+  <data name="errorBuscandoIpPublica" xml:space="preserve">
+    <value>Error trying to get ip address public: {0}</value>
+  </data>
+  <data name="nuevaVersionDisponible" xml:space="preserve">
+    <value>A new version is available: {0}</value>
   </data>
 </root>

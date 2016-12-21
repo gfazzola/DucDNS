@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MadMilkman.Ini, Version=1.0.6.0, Culture=neutral, PublicKeyToken=4e0b5157a7ffbb74, processorArchitecture=MSIL">
+      <HintPath>..\packages\MadMilkman.Ini.1.0.6.0\lib\net20\MadMilkman.Ini.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.11\lib\net40\NLog.dll</HintPath>
       <Private>True</Private>
@@ -50,6 +54,12 @@
     <Compile Include="ColaProcesamiento.cs" />
     <Compile Include="Comun.cs" />
     <Compile Include="Configuracion.cs" />
+    <Compile Include="Forms\formHistorialVersiones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\formHistorialVersiones.Designer.cs">
+      <DependentUpon>formHistorialVersiones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\formAcercaDe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +107,9 @@
     <Compile Include="TaskTrayApplicationContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Doc\HistorialVersiones.en-US.txt" />
+    <Content Include="Doc\HistorialVersiones.txt" />
+    <Content Include="DucDNSVersion.txt" />
     <Content Include="Plantillas\notificacion.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -123,6 +136,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\formHistorialVersiones.resx">
+      <DependentUpon>formHistorialVersiones.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\formAcercaDe.resx">
       <DependentUpon>formAcercaDe.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,0 +1,9 @@
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\bin\Release\MTC.Host.Consola.exe
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\bin\Release\MTC.Host.Consola.pdb
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\bin\Release\en-US\MTC.Host.Consola.resources.dll
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\obj\Release\MTC.Host.Consola.Properties.Resources.resources
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\obj\Release\MTC.Host.Consola.Properties.Resources.en-US.resources
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\obj\Release\MTC.Host.Consola.csproj.GenerateResource.Cache
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\obj\Release\en-US\MTC.Host.Consola.resources.dll
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\obj\Release\MTC.Host.Consola.exe
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.Consola\obj\Release\MTC.Host.Consola.pdb

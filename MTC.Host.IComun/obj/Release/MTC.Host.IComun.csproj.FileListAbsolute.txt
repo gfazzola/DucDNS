@@ -1,0 +1,11 @@
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\bin\Release\MTC.Host.IComun.dll
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\bin\Release\MTC.Host.IComun.pdb
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\bin\Release\en-US\MTC.Host.IComun.resources.dll
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\bin\Release\NLog.dll
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\bin\Release\NLog.xml
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\obj\Release\MTC.Host.IComun.Properties.Resources.resources
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\obj\Release\MTC.Host.IComun.Properties.Resources.en-US.resources
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\obj\Release\MTC.Host.IComun.csproj.GenerateResource.Cache
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\obj\Release\en-US\MTC.Host.IComun.resources.dll
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\obj\Release\MTC.Host.IComun.dll
+C:\Sistemas\DucDNS\1.0.0.0\MTC.Host.IComun\obj\Release\MTC.Host.IComun.pdb

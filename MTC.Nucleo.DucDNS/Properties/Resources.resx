@@ -374,7 +374,7 @@
     <value>Iniciar y salir</value>
   </data>
   <data name="servicioInstalar" xml:space="preserve">
-    <value>Install</value>
+    <value>Instalar</value>
   </data>
   <data name="servicioNoInstalado" xml:space="preserve">
     <value>no instalado</value>
@@ -462,5 +462,35 @@
   </data>
   <data name="ttipoNotificacion" xml:space="preserve">
     <value>Tipo de notificacion</value>
+  </data>
+  <data name="archivoHistorialVersiones" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Doc\HistorialVersiones.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="archivoNoExiste" xml:space="preserve">
+    <value>El archivo '{0}' no existe</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="errorClaveIncorrecta" xml:space="preserve">
+    <value>Contraseña incorrecta</value>
+  </data>
+  <data name="historialDeVersiones" xml:space="preserve">
+    <value>Historial de versiones</value>
+  </data>
+  <data name="infoAccesoAConfig" xml:space="preserve">
+    <value>Haga click con el boton derecho sobre el icono para cambiar la configuracion</value>
+  </data>
+  <data name="cambiosNuevaVersion" xml:space="preserve">
+    <value>Novedades de la nueva version</value>
+  </data>
+  <data name="direccionIP" xml:space="preserve">
+    <value>Direccion ip</value>
+  </data>
+  <data name="errorBuscandoIpPublica" xml:space="preserve">
+    <value>Error intentando obtener la direccion ip publica: {0}</value>
+  </data>
+  <data name="nuevaVersionDisponible" xml:space="preserve">
+    <value>Esta disponible una nueva version: {0}</value>
   </data>
 </root>

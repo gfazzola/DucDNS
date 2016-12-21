@@ -1,0 +1,28 @@
+﻿Signos convencionales:
+  ! Arreglo relacionado a seguridad o a algo critico.
+  + Nueva caracteristica o arreglo importante.
+  - Correccion de errores
+
+  Prefijos de plataforma:
+    MSW: Microsoft Windows
+    *nix: Unix (Ej: BSD) y sistemas basados en Unix (Ej. Linux)
+    OS X: Apple Mac OS X
+
+1.0.0.2 (2016-12-21)
++ MSW: Cambio en el mecanismo de verificación de conexión a internet
+
+1.0.0.1 (2016-12-14)
+- MSW: Bug a la hora de guardar el password.
++ MSW: Agregado del archivo de historial de versiones
++ MSW: Notificacion al momento de introducir la contraseña que es incorrecta
++ MSW: Notificacion en el icono de la barra de tareas cuando se pierde/reestablece la conexion a internet
++ MSW: Notificacion en el icono de la barra de tareas cuando se cambia la direccion ip
++ MSW: Mecanismo de actualizacion de nueva version simple
++ MSW: Informacion en el icono de la barra de tareas cuando existe una nueva version
++ MSW: Agregado de informacion en el formulario de configuracion acerca de las novedades de la nueva version 
+- MSW: Correccion de varios errores y mejora en manejo de dominios
++ MSW: Agregado del logo de mtcsistemas y ducdns
++ MSW: Agregado de nuevos mensajes internacionalizados
+
+1.0.0.0 (2016-12-01)
+Version inicial
